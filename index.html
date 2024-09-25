@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Welcome to the Animal Shelter, Let's find you your best friend!</h2>
+
+    <!--Create a field for user to input age requirement, and a button that will kickstart function-->
+    <p>
+        <label for="petNum">Pet Minimum Age:</label>
+        <input type="text" id="petAge" name="petAge" maxlength="4" size="4"></input>
+        <button onclick="showResults(document.getElementById('petAge').value)">Check Availability!</button>
+    </p>
+
+    <!--This is where the information for pets who apply to age requirement will be posted-->
+    <p class = "petInfo"></p>
+
+    <script>
+        const dogData = [
+            // most every dog on the top is a terrier pit mix
+            {
+                dogName: "Abby",
+                breed: "SharPei",
+                age: 7
+            },
+
+            {
+                dogName: "Akino",
+                breed: "Husky",
+                age: 5
+            },
+
+            {
+                dogName: "Red",
+                breed: "Terrier/Pit Bull Mix",
+                age: 9
+            },
+
+            {
+                dogName: "Smokey",
+                breed: "Terrier/American Pit Bull Mix",
+                age: 3
+            },
+
+            {
+                dogName: "Jeremy",
+                breed: "Terrier/Pit Bull Mix",
+                age: 2
+            },
+
+            {
+                dogName: "Sammie",
+                breed: "Terrier/American Pit Bull Mix",
+                age: 7
+            },
+
+            {
+                dogName: "Jae",
+                breed: "Terrier",
+                age: 6
+            },
+
+            {
+                dogName: "Luna LoveGood",
+                breed: "Terrier",
+                age: 3
+            },
+
+            {
+                dogName: "Sir",
+                breed: "Terrier",
+                age: 7
+            },
+
+            {
+                dogName: "Tyson",
+                breed: "Hound",
+                age: 3
+            },
+
+
+        ];
+
+        //initialize the selectedDogs array, because it will be added to in the showResults function
+        // also initialize petStr, the string that will be added to as function iterates for each item, and displayed
+        let selectedDogs = [];   
+        let petStr = ""; 
+
+        // ENTIRE function is all kickstarted by the button press that calls upon it, there are more functs inside
+        const showResults = () => {
+            //  get the user input from the field and of course make it an int since we are comparing number values
+            let petAge = parseInt(document.getElementById('petAge').value);
+            // following function is almost like a for loop, but it iterates for every single item in array on its own
+            dogData.forEach((item) => {
+            if (item.age > petAge) {
+                //for every dog that is above the age threshold, log it to the console for convenience
+                console.log(`${item.dogName} is older than ${petAge}`);
+                // if item satisfies requirement (greater than petAge) then whole object will be pushed to new array
+                selectedDogs.push(item);
+                // (again if item satisfies requirement) at end of loop it will be added to petStr to display to page
+                petStr += `${item.dogName} is compatible! They are a ${item.breed} and ${item.age} years old! <br>`;
+            }}); 
+            let petInfo = document.querySelector('.petInfo');
+            petInfo.innerHTML = petStr;
+            //When reloading the page to do it again, results are added onto array, instead of replacing old results
+            // when I set it blank, I am wiping the slate clean for another go
+            // Even if array is reset, previous results will still show up on body, so reset petStr
+            // when I reset petStr user still sees their results, it only disappears when new input put in
+            selectedDogs = [];
+            petStr = "";
+            // if subsequent inputs are made I want it to be clearly divided
+            console.log("_________________________________________________")
+        };  
+
+        //  If it's every required to narrow down multiple choices, this would most likely repeat
+    </script>
+</body>
+</html>
